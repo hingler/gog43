@@ -25,6 +25,9 @@ namespace gog43 {
     virtual void logger_print(std::string& msg) = 0;
     virtual void logger_print(std::string&& msg) = 0;
 
+    virtual void logger_error(std::string& msg) = 0;
+    virtual void logger_error(std::string&& msg) = 0;
+
     // start timer
     virtual void benchStart(const std::string& name) = 0;
     // finishes timer and logs time taken
@@ -37,7 +40,8 @@ namespace gog43 {
   void print(std::string& msg);
   void print(std::string&& msg);
 
-
+  void error(std::string& msg);
+  void error(std::string&& msg);
 
   template <class... Args>
   static void print(const Args&... args) {
@@ -51,8 +55,21 @@ namespace gog43 {
     print(res);
   }
 
+  template <class... Args>
+  static void error(const Args&... args) {
+    // copied roughly from godot print defn
+    std::string res = "";
+    std::array<std::string, sizeof...(Args)> var_args { std::to_string(args)... };
+    for (size_t i = 0; i < var_args.size(); i++) {
+      res += var_args[i];
+    }
+
+    error(res);
+  }
+
   // todo: i dont know what the debug flag is lole
   void print(const char* msg);
+  void error(const char* msg);
 
   void benchStart(const std::string& name);
   void benchEnd(const std::string& name);

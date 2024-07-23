@@ -18,6 +18,16 @@ namespace gog43 {
     std::cout << msg << std::endl;
   }
 
+  void IOStreamLogger::logger_error(std::string& msg) {
+    std::lock_guard<std::recursive_mutex> lock(print_lock);
+    std::cerr << msg << std::endl;
+  }
+
+  void IOStreamLogger::logger_error(std::string&& msg) {
+    std::lock_guard<std::recursive_mutex> lock(print_lock);
+    std::cerr << msg << std::endl;
+  }
+
   void IOStreamLogger::benchStart(const std::string& name) {
     std::lock_guard<std::recursive_mutex> lock(print_lock);
     uint64_t current_time = getUsecs();

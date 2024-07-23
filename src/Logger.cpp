@@ -24,6 +24,14 @@ namespace gog43 {
       // no op
     }
 
+    void logger_error(std::string& msg) override {
+      // no op
+    }
+
+    void logger_error(std::string&& msg) override {
+      // no op
+    }
+
     void benchStart(const std::string& name) override {
       // no op
     }
@@ -62,6 +70,7 @@ namespace gog43 {
   }
 
   void print(std::string&& msg) {
+    // not rly a fan but whatever
     auto time = get_time();
     time.append(msg);
     sharedLogger->logger_print(std::forward<std::string>(time));

@@ -13,6 +13,9 @@ namespace gog43 {
     void logger_print(std::string& msg) override;
     void logger_print(std::string&& msg) override;
 
+    void logger_error(std::string& msg) override;
+    void logger_error(std::string&& msg) override;
+
     void benchStart(const std::string& name) override;
     void benchEnd(const std::string& name) override;
 
